@@ -16,7 +16,7 @@ const spriteTitles = {
   front_shiny_female: "Hembra frontal brillante",
 };
 
-export default function Form(props) {
+/* export default function Form(props) {
   const location = useLocation();
   // * Use navigate to return root path
   const navigate = useNavigate();
@@ -45,4 +45,4 @@ export default function Form(props) {
       <button>Submit</button>
     </form>
   );
-}
+} */
