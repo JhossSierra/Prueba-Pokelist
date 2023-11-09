@@ -1,4 +1,4 @@
-//@
+
 import React, { useEffect } from "react";
 
 import Home from "./containers/Home";
@@ -13,7 +13,7 @@ export default function MyRoutes(props) {
       <Routes>
         <Route path="/">
           <Route index path="/" element={<Home tableRows={tableRows} />} />
-         {/*  <Route
+          <Route
             path="home"
             element={<Form pokemonTypesOptions={pokemonTypesOptions} />}
           />
@@ -26,7 +26,7 @@ export default function MyRoutes(props) {
                 handleUpdatePokemonRow={handleUpdatePokemonRow}
               />
             }
-          /> */}
+          />
           <Route index path="*" element={<Home tableRows={tableRows} />} />
         </Route>
       </Routes>

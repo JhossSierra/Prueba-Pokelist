@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Loading = () => {
-  return (
-    <div>
-      Loading...
-    </div>
-  )
-}
+const Loading = (/* { children, isLoading: } */) => (
+  <div>{/* isLoading ? */ <h3>Loading...</h3> /* : children */}</div>
+);
 
-export default Loading
+export default Loading;

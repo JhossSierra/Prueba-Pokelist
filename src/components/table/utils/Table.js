@@ -20,15 +20,21 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import Button from '@mui/material/Button'
-import Input from '@mui/material/Input'
+import Button from "@mui/material/Button";
 import { visuallyHidden } from "@mui/utils";
 import {headCells} from './table/utils/constants'
-import { stableSort } from "./table/utils/functions";
-import { getComparator } from "./table/utils/functions";
+
+/**
+ * * This constant could be helpful to know if you have a Pokemon
+ * TODO: Fragmentar / Modular
+ * ? Qué más se puede mejorar
+ * ! A ver custom hooks
+ * ! Intentar no utilizar setStates sino useMemo para variables y useCallback para funciones muy iteradas.
+ * * Cuando migres de JS a TS elimina las PROPTYPES y gestionalo todo por tipados e interfaces
+ * 
+ * */
 
 
-// * This constant could be helpful to know if you have a Pokemon
 
 function EnhancedTableHead(props) {
   const {
@@ -44,7 +50,6 @@ function EnhancedTableHead(props) {
   };
 
   return (
-    <>
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
@@ -56,20 +61,20 @@ function EnhancedTableHead(props) {
             inputProps={{
               "aria-label": "select all desserts",
             }}
-            />
+          />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
-          key={headCell.id}
-          align={headCell.numeric ? "right" : "left"}
-          padding={headCell.disablePadding ? "none" : "normal"}
-          sortDirection={orderBy === headCell.id ? order : false}
+            key={headCell.id}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "normal"}
+            sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
-              >
+            >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
@@ -81,7 +86,6 @@ function EnhancedTableHead(props) {
         ))}
       </TableRow>
     </TableHead>
-    </>
   );
 }
 
@@ -94,75 +98,9 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const EnhancedTableToolbar = (props) => {
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    >
-
-      {/* <div className="Search">
-      <Input></Input> <Button variant="outlined">Buscar</Button>
-      </div> */}
-    
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          POKEMONS
-        </Typography>
-        
-      )}
-
-
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-};
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
 export default function EnhancedTable(props) {
   const { rowsProp, handleEditButton } = props;
-  const [rows, setRows] = React.useState([]);
+  const [rows, setRows] = React.useState([]); //! CACA DE VACA TANTO USE STATE
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -171,10 +109,8 @@ export default function EnhancedTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   React.useEffect(() => {
-    setRows(rowsProp)
-
-  }, [rowsProp])
-
+    setRows(rowsProp);
+  }, [rowsProp]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -191,33 +127,14 @@ export default function EnhancedTable(props) {
     setSelected([]);
   };
 
- /*  React.useEffect(() => { }, [JSON.stringify(rowsProp)]); */
+  React.useEffect(() => {}, [JSON.stringify(rowsProp)]);
 
   const handleClick = (event, name) => {
+    // se mejora con switch y push
     const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
+    const newSelected = [];
 
-    switch (selectedIndex) {
-      case -1:
-        newSelected = newSelected.concat(selected, name)
-        break
-      case 0:
-        newSelected = newSelected.concat(selected.slice(1))
-        break
-      case selected.length - 1:
-        newSelected = newSelected.concat(selected.slice(0, -1))
-        break
-      default:
-        newSelected = newSelected.concat(
-          selected.slice(0, selectedIndex),
-          selected.slice(selectedIndex + 1)
-        )
-    }
-
-    setSelected(newSelected);
-  };
-    
-   /*  if (selectedIndex === -1) {
+    if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
@@ -231,7 +148,7 @@ export default function EnhancedTable(props) {
     }
 
     setSelected(newSelected);
-  }; */
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -282,20 +199,24 @@ export default function EnhancedTable(props) {
                   return (
                     <TableRow
                       hover
-                      /* onClick={(event) => handleClick2(event, row.name)} */
-
+                      onClick={(event) => {
+                        handleClick(event, row.name);
+                      }}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.name}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox"  onClick={(event) => {
-                        handleClick(event, row.name);
-                      }}>
+                      <TableCell padding="checkbox">
                         <Checkbox color="primary" checked={isItemSelected} />
                         <TableCell padding="checkbox">
-                          <Button variant="outlined" onClick={handleEditButton(row)}>Edit</Button>
+                          <Button
+                            variant="outlined"
+                            onClick={handleEditButton(row)}
+                          >
+                            Edit
+                          </Button>
                         </TableCell>
                       </TableCell>
 
@@ -305,17 +226,12 @@ export default function EnhancedTable(props) {
                         scope="row"
                         padding="none"
                       >
-                        <img alt="" src={row.sprites.front_default}/>
-
+                        {row.name}
                       </TableCell>
-                      <TableCell align="left">{row.id}</TableCell>
-                      <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="left"><ul> {row.types.map((type)=>(<li key={type.type.name}>{type.type.name}</li>))} </ul> </TableCell>
-                      <TableCell align="left">amigos</TableCell>
-                      <TableCell align="left">{row.height}</TableCell>
-                      <TableCell align="left">{row.weight}</TableCell>
-                      <TableCell align="left">my_description</TableCell>
-
+                      <TableCell align="right">{row.id}</TableCell>
+                      <TableCell align="right">{row.name}</TableCell>
+                      <TableCell align="right"> tipos </TableCell>
+                      <TableCell align="right">amigos</TableCell>
                     </TableRow>
                   );
                 })}

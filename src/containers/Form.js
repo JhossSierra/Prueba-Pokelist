@@ -2,6 +2,7 @@ import React from "react";
 import Text from "../components/Text";
 import Select from "../components/Select";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ImageList } from "@mui/material";
 
 // * use spritesTitles to set the titles to Images
 
@@ -16,11 +17,11 @@ const spriteTitles = {
   front_shiny_female: "Hembra frontal brillante",
 };
 
-/* export default function Form(props) {
+export default function Form(props) {
   const location = useLocation();
   // * Use navigate to return root path
-  const navigate = useNavigate();
-  const { sprites, id_pokemon } = location.state;
+  /* const navigate = useNavigate();
+  const { sprites, id_pokemon } = location.state; */
 
   const { pokemonTypesOptions, tableRows, handleUpdatePokemonRow } = props;
 
@@ -32,17 +33,17 @@ const spriteTitles = {
 
   return (
     <form>
-      <Text label={"New name"} defaultValue={foundPokemon.my_name} />
+      <Text label={"New name"} defaultValue='{foundPokemon.my_name}' />
 
-      <Select label={"New type"} defaultValue={foundPokemon.my_types} />
+      <Select label={"New type"} defaultValue='{foundPokemon.my_types}' />
       <Select
         label={"Best teammate"}
-        defaultValue={foundPokemon.my_teammates}
+        defaultValue='{foundPokemon.my_teammates}'
       />
 
-      <ImageList defaultValue={foundPokemon.my_sprite} />
+      <ImageList defaultValue='{foundPokemon.my_sprite}' />
 
       <button>Submit</button>
     </form>
   );
-} */
+}
