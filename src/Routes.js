@@ -18,7 +18,7 @@ export default function MyRoutes(props) {
             element={<Form pokemonTypesOptions={pokemonTypesOptions} />}
           />
           <Route
-            path="" // ? wich path?
+            path="form/:name" // ? wich path?
             element={
               <Form
                 pokemonTypesOptions={pokemonTypesOptions}

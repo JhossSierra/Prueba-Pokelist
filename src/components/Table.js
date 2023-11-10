@@ -316,6 +316,8 @@ export default function EnhancedTable(props) {
                       <TableCell align="left">{row.weight}</TableCell>
                       <TableCell align="left">my_description</TableCell>
 
+                    {console.log(row.types)}
+
                     </TableRow>
                   );
                 })}

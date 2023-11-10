@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Text from "../components/Text";
 import Select from "../components/Select";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -18,12 +18,16 @@ const spriteTitles = {
 };
 
 export default function Form(props) {
+  const [types, setTypes] = useState([]);
+  
   const location = useLocation();
   // * Use navigate to return root path
-  /* const navigate = useNavigate();
-  const { sprites, id_pokemon } = location.state; */
+  const navigate = useNavigate();
+  /* const { sprites, id_pokemon } = location.state; */ //!esto esta en nulo, viene de la ruta, ver que pasa 
 
   const { pokemonTypesOptions, tableRows, handleUpdatePokemonRow } = props;
+
+
 
   const onSubmit = (e) => {
     e.stopPropagation();
@@ -33,17 +37,23 @@ export default function Form(props) {
 
   return (
     <form>
-      <Text label={"New name"} defaultValue='{foundPokemon.my_name}' />
+      <Text label={"New name"} defaultValue='{foundPokemon.my_name}' type={'name'} />
+      
 
-      <Select label={"New type"} defaultValue='{foundPokemon.my_types}' />
+      <Select label={"New type"} 
+      defaultValue='{foundPokemon.my_types}' 
+      options={pokemonTypesOptions} 
+      callbk={(types)=> {setTypes(types)}} />
+      
       <Select
         label={"Best teammate"}
         defaultValue='{foundPokemon.my_teammates}'
+        options={types}
       />
 
       <ImageList defaultValue='{foundPokemon.my_sprite}' />
 
-      <button>Submit</button>
+      <button onSubmit={onSubmit}>Submit</button>
     </form>
   );
 }

@@ -42,29 +42,45 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function Selector() {
+export default function Selector(props) {
+
+ 
+
+  let {options,label,selectedTypes,callbk}=props
+
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const [pokeTypes, setPoketypes] = React.useState([]);
+  selectedTypes=pokeTypes
+  callbk? callbk(selectedTypes):console.log(selectedTypes)
 
   const handleChange = (event) => {
+    
+
+    if (event.target.value.length<3){
+
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    
+      setPoketypes(
+        // On autofill we get a stringified value.
+        typeof value === "string" ? value.split(",") : value
+ 
+      );
+
+    }
+    
   };
 
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">Selección</InputLabel>
+        <InputLabel id="demo-multiple-chip-label">{label}</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={personName}
+          value={pokeTypes}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
@@ -76,13 +92,13 @@ export default function Selector() {
           )}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
+          {options.map((opt) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
+              key={opt}
+              value={opt}
+              style={getStyles(opt, pokeTypes, theme)}
             >
-              {name}
+              {opt}
             </MenuItem>
           ))}
         </Select>

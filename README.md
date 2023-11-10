@@ -47,6 +47,7 @@
    .1. Text.js
    .2. Select.js
    .3. ImageList
+
 2. Create a form component to change the pokemon attributes that handles the nexts fields:
    .1. New name of the pokemon
    .2. Description of the change (Make this text input to have 5 lines)

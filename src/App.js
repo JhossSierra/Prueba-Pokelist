@@ -9,10 +9,11 @@ import axios from "axios";
 import { Outlet } from "react-router-dom";
 
 function App() {
-  const url = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
-
+  const PokesUrl = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
+  
   const [tableRows, setTableRows] = React.useState([]);
-
+  const [pokemonTypesOptions, setPokemonTypesOptions] = React.useState([]);
+  
   //JJ fetching de datos
   useEffect(() => {
     const getdata = async (url: string) => {
@@ -24,9 +25,8 @@ function App() {
           data1.map(async (element) => {
             const response = await fetch(element.url);
             const data2 = await response.json();
-            /* const descResp =await fetch(`https://pokeapi.co/api/v2/pokemon-species/${data2.id}`)
-            const data3 = await descResp.json()
-            console.log(data3) */
+            
+            
             const pokeInfo = {
               name: element.name,
               id: data2.id,
@@ -45,12 +45,28 @@ function App() {
       }
     };
 
-    getdata(url);
+    getdata(PokesUrl);
+  
+    const getPokemonTypesOption =async(url)=>{
+      try{
+        
+        let typeResp =await fetch(url);
+        let typeData = await typeResp.json();
+        const typeOptions=typeData.results.map(type=>type.name)
+        setPokemonTypesOptions(typeOptions)
+
+
+    }
+    catch(err){console.log("Error al obtener tipos")}
+      
+    }
+  
+    getPokemonTypesOption('https://pokeapi.co/api/v2/type/')
+  
   }, []);
 
   //JJ
 
-  const [pokemonTypesOptions, setPokemonTypesOptions] = React.useState([]);
 
   const handleUpdatePokemonRow = ({ id_pokemon, fields }) => {
     const { my_name, my_description, my_types, my_teammates, my_sprite } =

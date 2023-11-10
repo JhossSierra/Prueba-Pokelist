@@ -1,7 +1,7 @@
 import React from "react";
 import EnhancedTable from "../components/Table";
 import { useNavigate } from "react-router-dom";
-/* import Loading from "../components/Loading"; */
+import Loading from "../components/Loading";
 
 export default function Home(props) {
   const { tableRows } = props;
@@ -26,7 +26,9 @@ export default function Home(props) {
 
   return (
     <div>
-      <EnhancedTable rowsProp={tableRows} handleEditButton={handleEditButton} />
+      <Loading isLoading={tableRows.length===0}>
+        <EnhancedTable rowsProp={tableRows} handleEditButton={handleEditButton}/>
+      </Loading>
     </div>
   );
 }
