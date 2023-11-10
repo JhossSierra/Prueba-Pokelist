@@ -51,7 +51,9 @@ export default function Selector(props) {
   const theme = useTheme();
   const [pokeTypes, setPoketypes] = React.useState([]);
   selectedTypes=pokeTypes
-  callbk? callbk(selectedTypes):console.log(selectedTypes)
+  if (callbk){
+    callbk(selectedTypes)
+  }
 
   const handleChange = (event) => {
     

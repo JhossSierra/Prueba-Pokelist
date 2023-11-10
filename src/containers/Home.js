@@ -10,6 +10,7 @@ export default function Home(props) {
 
   const handleEditButton = (row) => (e) => {
     e.stopPropagation();
+    
     const {
       html_image,
       html_types,
@@ -22,6 +23,7 @@ export default function Home(props) {
     navigate(`form/${row.name}`, {
       state: { ...params },
     });
+    
   };
 
   return (

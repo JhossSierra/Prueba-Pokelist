@@ -1,4 +1,4 @@
-import * as React from "react";
+/* import * as React from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -34,7 +34,7 @@ import {headCells} from './table/utils/constants'
  * 
  * */
 
-
+/* 
 
 function EnhancedTableHead(props) {
   const {
@@ -132,7 +132,7 @@ export default function EnhancedTable(props) {
   const handleClick = (event, name) => {
     // se mejora con switch y push
     const selectedIndex = selected.indexOf(name);
-    const newSelected = [];
+    let newSelected = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
@@ -189,7 +189,7 @@ export default function EnhancedTable(props) {
             />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
+                 rows.slice().sort(getComparator(order, orderBy))
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
@@ -215,7 +215,7 @@ export default function EnhancedTable(props) {
                             variant="outlined"
                             onClick={handleEditButton(row)}
                           >
-                            Edit
+                            Edit {row.name}
                           </Button>
                         </TableCell>
                       </TableCell>
@@ -264,3 +264,4 @@ export default function EnhancedTable(props) {
     </Box>
   );
 }
+ */

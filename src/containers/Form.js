@@ -23,10 +23,11 @@ export default function Form(props) {
   const location = useLocation();
   // * Use navigate to return root path
   const navigate = useNavigate();
-  /* const { sprites, id_pokemon } = location.state; */ //!esto esta en nulo, viene de la ruta, ver que pasa 
+  const rowdata = location.state; 
 
   const { pokemonTypesOptions, tableRows, handleUpdatePokemonRow } = props;
-
+  
+  const teamPokes = tableRows.filter(poke=> rowdata.type )
 
 
   const onSubmit = (e) => {

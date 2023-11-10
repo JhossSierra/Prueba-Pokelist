@@ -296,6 +296,7 @@ export default function EnhancedTable(props) {
                         <Checkbox color="primary" checked={isItemSelected} />
                         <TableCell padding="checkbox">
                           <Button variant="outlined" onClick={handleEditButton(row)}>Edit</Button>
+                          {console.log(row)}
                         </TableCell>
                       </TableCell>
 
