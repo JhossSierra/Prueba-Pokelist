@@ -25,9 +25,12 @@ export default function Form(props) {
   const navigate = useNavigate();
   const rowdata = location.state; 
 
+  console.log(rowdata.types.map(type=>type.type.name))
+
+
   const { pokemonTypesOptions, tableRows, handleUpdatePokemonRow } = props;
   
-  const teamPokes = tableRows.filter(poke=> rowdata.type )
+ /*  const teamPokes = tableRows.filter(poke=> rowdata.type ) */
 
 
   const onSubmit = (e) => {
@@ -38,19 +41,19 @@ export default function Form(props) {
 
   return (
     <form>
-      <Text label={"New name"} defaultValue='{foundPokemon.my_name}' type={'name'} />
-      
+      <Text label={"New name"} defaultValue={rowdata.name} type={'name'} />
+      <Text label={"comment"} defaultValue='' type={'comment'} />
 
       <Select label={"New type"} 
-      defaultValue='{foundPokemon.my_types}' 
+      defaultValue={rowdata.types.map(type=>type.type.name)} 
       options={pokemonTypesOptions} 
       callbk={(types)=> {setTypes(types)}} />
       
-      <Select
+      {/* <Select
         label={"Best teammate"}
         defaultValue='{foundPokemon.my_teammates}'
         options={types}
-      />
+      /> */}
 
       <ImageList defaultValue='{foundPokemon.my_sprite}' />
 

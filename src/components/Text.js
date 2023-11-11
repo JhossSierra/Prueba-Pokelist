@@ -21,7 +21,7 @@ export default function Text(props) {
           defaultValue={defaultValue}
           /* helperText="Incorrect entry." */
           variant="standard"
-           //?rows={5}
+           rows={5}
            //?multiline={true}
         />
       </div>
