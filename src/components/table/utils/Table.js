@@ -1,4 +1,4 @@
-/* import * as React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -34,7 +34,7 @@ import {headCells} from './table/utils/constants'
  * 
  * */
 
-/* 
+
 
 function EnhancedTableHead(props) {
   const {
@@ -188,7 +188,7 @@ export default function EnhancedTable(props) {
               rowCount={rows.length}
             />
             <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+               if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy))
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -264,4 +264,3 @@ export default function EnhancedTable(props) {
     </Box>
   );
 }
- */

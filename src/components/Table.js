@@ -312,10 +312,10 @@ export default function EnhancedTable(props) {
                       <TableCell align="left">{row.id}</TableCell>
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left"><ul> {row.types.map((type)=>(<li key={type.type.name}>{type.type.name}</li>))} </ul> </TableCell>
-                      <TableCell align="left">amigos</TableCell>
+                      <TableCell align="left">{row.friends}</TableCell>
                       <TableCell align="left">{row.height}</TableCell>
                       <TableCell align="left">{row.weight}</TableCell>
-                      <TableCell align="left">my_description</TableCell>
+                      <TableCell align="left">{row.comment}</TableCell>
 
                     
 

@@ -26,12 +26,42 @@ export default function Form(props) {
   const rowdata = location.state; 
 
 
-  console.log(rowdata)
-
-
+  
+  
   const { pokemonTypesOptions, tableRows, handleUpdatePokemonRow } = props;
   
-console.log('filtro:',tableRows.filter(poke=> poke.id === rowdata.id ))
+//console.log(rowdata)//lo que viene
+//console.log(types)//tipos de lo que viene ya modificados desde el select
+//tablerows = todos los pokes
+
+
+
+const arreglosDePokemon = tableRows
+
+const nombreEspecifico = "grass"; // Nombre específico a comparar
+const pokemonesConTipoEspecifico = [];
+
+for (let i = 0; i < arreglosDePokemon.length; i++) {
+  const arregloDePokemon = arreglosDePokemon[i];
+
+  for (let j = 0; j < arregloDePokemon.length; j++) {
+    const pokemon = arregloDePokemon[j];
+    const tipos = pokemon.types;
+    console.log(tipos)
+
+    tipos.forEach((tipo) => {
+
+      if (tipo.type.name === nombreEspecifico) {
+        pokemonesConTipoEspecifico.push(pokemon);
+      }
+    });
+  }
+}
+
+/* console.log(pokemonesConTipoEspecifico); */
+
+/* console.log(pokemonesConTiposEspecificos); */
+
 
 
   const onSubmit = (e) => {
@@ -53,7 +83,7 @@ console.log('filtro:',tableRows.filter(poke=> poke.id === rowdata.id ))
       <Select
         label={"Best teammate"}
         defaultValue={[]} //array
-        options={types}
+        options={tableRows.map(poke=>poke.name)}
       />
 
       <ImageList defaultValue='{foundPokemon.my_sprite}' />

@@ -34,6 +34,8 @@ function App() {
               weight: data2.weight,
               types: data2.types,
               sprites: data2.sprites,
+              comment:'',
+              friends:'',
             };
 
             return pokeInfo;
