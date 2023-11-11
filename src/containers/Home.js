@@ -19,6 +19,7 @@ export default function Home(props) {
       html_my_teammates,
       ...params
     } = row;
+    console.log(params)
     // ! NAVIGATE NOT ACCEPT HTML PARAMS
     navigate(`form/${row.name}`, {
       state: { ...params },

@@ -25,12 +25,13 @@ export default function Form(props) {
   const navigate = useNavigate();
   const rowdata = location.state; 
 
-  console.log(rowdata.types.map(type=>type.type.name))
+
+  console.log(rowdata)
 
 
   const { pokemonTypesOptions, tableRows, handleUpdatePokemonRow } = props;
   
- /*  const teamPokes = tableRows.filter(poke=> rowdata.type ) */
+console.log('filtro:',tableRows.filter(poke=> poke.id === rowdata.id ))
 
 
   const onSubmit = (e) => {
@@ -49,11 +50,11 @@ export default function Form(props) {
       options={pokemonTypesOptions} 
       callbk={(types)=> {setTypes(types)}} />
       
-      {/* <Select
+      <Select
         label={"Best teammate"}
-        defaultValue='{foundPokemon.my_teammates}'
+        defaultValue={[]} //array
         options={types}
-      /> */}
+      />
 
       <ImageList defaultValue='{foundPokemon.my_sprite}' />
 

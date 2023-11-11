@@ -47,7 +47,7 @@ export default function Selector(props) {
  
 
   let {options,label,selectedTypes,callbk,defaultValue}=props
-console.log('defaultValue=',defaultValue)
+
   const theme = useTheme();
 
   let [pokeTypes, setPoketypes] = React.useState(defaultValue);
@@ -67,7 +67,7 @@ console.log('defaultValue=',defaultValue)
     const {
       target: { value },
     } = event;
-    console.log(value)
+   
       setPoketypes(
         // On autofill we get a stringified value.
         typeof value === "string" ? value.split(",") : value
