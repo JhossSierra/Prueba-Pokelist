@@ -26,13 +26,14 @@ function App() {
             const response = await fetch(element.url);
             const data2 = await response.json();
             
-            
+           
+
             const pokeInfo = {
               name: element.name,
               id: data2.id,
               height: data2.height,
               weight: data2.weight,
-              types: data2.types,
+              types: data2.types.map(type=>type.type.name),
               sprites: data2.sprites,
               comment:'',
               friends:'',

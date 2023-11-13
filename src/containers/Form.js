@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Text from "../components/Text";
 import Select from "../components/Select";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ImageList } from "@mui/material";
-
+import { ImageList, ratingClasses } from "@mui/material";
+import { useForm } from "react-hook-form";
 // * use spritesTitles to set the titles to Images
 
 const spriteTitles = {
@@ -19,76 +19,75 @@ const spriteTitles = {
 
 export default function Form(props) {
   const [types, setTypes] = useState([]);
-  
+
   const location = useLocation();
   // * Use navigate to return root path
   const navigate = useNavigate();
-  const rowdata = location.state; 
+  const rowdata = location.state;
 
-
-  
-  
   const { pokemonTypesOptions, tableRows, handleUpdatePokemonRow } = props;
-  
-//console.log(rowdata)//lo que viene
-//console.log(types)//tipos de lo que viene ya modificados desde el select
-//tablerows = todos los pokes
 
+  //console.log(rowdata)//lo que viene
+  //console.log(types)//tipos de lo que viene ya modificados desde el select
+  //tablerows = todos los pokes
 
+  const arreglosDePokemon = tableRows;
+  console.log(arreglosDePokemon, "arreglosDePokemon");
 
-const arreglosDePokemon = tableRows
+  const { handleSubmit, register, setValue, getValues } = useForm( {
+    defaultValues: {
+      name: rowdata.name,
+      comment: "",
+      type: rowdata.type,
+      teammate: "",
+      image: "",
+    },
+  } );
 
-const nombreEspecifico = "grass"; // Nombre específico a comparar
-const pokemonesConTipoEspecifico = [];
-
-for (let i = 0; i < arreglosDePokemon.length; i++) {
-  const arregloDePokemon = arreglosDePokemon[i];
-
-  for (let j = 0; j < arregloDePokemon.length; j++) {
-    const pokemon = arregloDePokemon[j];
-    const tipos = pokemon.types;
-    console.log(tipos)
-
-    tipos.forEach((tipo) => {
-
-      if (tipo.type.name === nombreEspecifico) {
-        pokemonesConTipoEspecifico.push(pokemon);
-      }
-    });
-  }
-}
-
-/* console.log(pokemonesConTipoEspecifico); */
-
-/* console.log(pokemonesConTiposEspecificos); */
-
-
+  const pokemonesConTipoEspecifico = arreglosDePokemon
+   .filter((pokemon) => {
+     const pokemonTypes = pokemon.types;
+     /* console.log(pokemonTypes) */
+     return pokemonTypes.every((pokemonType) => types.includes(pokemonType));
+   });
+   console.log(pokemonesConTipoEspecifico)
 
   const onSubmit = (e) => {
+    console.log(e, "event");
     e.stopPropagation();
     e.preventDefault();
     handleUpdatePokemonRow({});
   };
 
   return (
-    <form>
-      <Text label={"New name"} defaultValue={rowdata.name} type={'name'} />
-      <Text label={"comment"} defaultValue='' type={'comment'} />
+    <form onSubmit={onSubmit}>
+      <Text label={"New name"} defaultValue={rowdata.name} type={"name"} />
+      <Text label={"comment"} defaultValue="" type={"comment"} />
 
-      <Select label={"New type"} 
-      defaultValue={rowdata.types.map(type=>type.type.name)} 
-      options={pokemonTypesOptions} 
-      callbk={(types)=> {setTypes(types)}} />
-      
+      <Select
+        label={"New type"}
+        defaultValue={getValues("type")}
+        value={rowdata.types}
+        options={pokemonTypesOptions}
+        onChange={(types) => {
+          console.log(types,'types');
+          setTypes(types);
+          setValue('type',types)
+        }}
+      />
+
       <Select
         label={"Best teammate"}
         defaultValue={[]} //array
-        options={tableRows.map(poke=>poke.name)}
+        onChange={(e) => {
+          console.log(e);
+        }}
+        options={pokemonesConTipoEspecifico.map((poke) => poke.name).sort()}
       />
 
-      <ImageList defaultValue='{foundPokemon.my_sprite}' />
+      <ImageList defaultValue="{foundPokemon.my_sprite}" />
 
-      <button onSubmit={onSubmit}>Submit</button>
+      <button>Submit</button>
     </form>
   );
 }

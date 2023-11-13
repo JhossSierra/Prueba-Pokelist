@@ -1,12 +1,12 @@
 //@ts-check
 import React from "react";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, Theme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import Select, {SelectProps} from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 
 const ITEM_HEIGHT = 48;
@@ -33,7 +33,7 @@ const names = [
   "Kelly Snyder",
 ];
 
-function getStyles(name, personName, theme) {
+function getStyles(name: string, personName:any[], theme:Theme) {
   return {
     fontWeight:
       personName.indexOf(name) === -1
@@ -41,42 +41,28 @@ function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-
-export default function Selector(props) {
-
- 
-
-  let {options,label,selectedTypes,callbk,defaultValue}=props
+interface SelectorProps extends SelectProps<string[]> {
+  options: string[];
+  label: string;
+  callbk: (types: string[]) => void;
+}
+export default function Selector({ options=[], label, value=[], callbk, defaultValue=[],onChange }: SelectorProps) {
 
   const theme = useTheme();
 
-  let [pokeTypes, setPoketypes] = React.useState(defaultValue);
 
-  
+  // const handleChange = (event) => {
+  //   if (event.target.value.length < 3) {
+  //     const {
+  //       target: { value },
+  //     } = event;
 
-  
-  if (callbk){
-    callbk(pokeTypes)
-  }
-
-  const handleChange = (event) => {
-    
-
-    if (event.target.value.length<3){
-
-    const {
-      target: { value },
-    } = event;
-   
-      setPoketypes(
-        // On autofill we get a stringified value.
-        typeof value === "string" ? value.split(",") : value
- 
-      );
-
-    }
-    
-  };
+  //     setPoketypes(
+  //       // On autofill we get a stringified value.
+  //       typeof value === "string" ? value.split(",") : value
+  //     );
+  //   }
+  // };
 
   return (
     <div>
@@ -86,12 +72,13 @@ export default function Selector(props) {
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={pokeTypes}
-          onChange={handleChange}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={onChange}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
+              {(selected as string[]).map((value) => (
                 <Chip key={value} label={value} />
               ))}
             </Box>
@@ -102,7 +89,7 @@ export default function Selector(props) {
             <MenuItem
               key={opt}
               value={opt}
-              style={getStyles(opt, pokeTypes, theme)}
+              style={getStyles(opt, value, theme)}
             >
               {opt}
             </MenuItem>
